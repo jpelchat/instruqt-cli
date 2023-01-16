@@ -59,10 +59,6 @@ curl -sL $URL -o instruqt.zip
 SHA256=$(curl -sL $URL.sha256sum | awk '{ print $1 }')
 CHECKSUM=$(openssl dgst -sha256 ./instruqt.zip | awk '{ print $2 }')
 
-echo $URL
-echo $SHA256
-echo $CHECKSUM
-
 if [[ "$CHECKSUM" != "$SHA256" ]]
 then
   echo "Checksum validation failed."
@@ -70,9 +66,17 @@ then
 fi
 
 # Install the CLI
-unzip instruqt.zip 
+unzip -qq instruqt.zip 
 sudo cp instruqt /usr/local/bin 
 sudo chmod +x /usr/local/bin/instruqt
 
 # Cleanup 
 rm -f instruqt.zip
+
+# Test command
+if instruqt > /dev/null 2> /dev/null
+then
+  echo "Instruqt CLI installed succesfully. Go forth and create."
+else
+  echo "Instruqt CLI installation failed. Try again or contact support!"
+fi
