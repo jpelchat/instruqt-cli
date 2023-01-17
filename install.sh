@@ -82,7 +82,7 @@ rm -f instruqt.zip
 # Test command
 if instruqt > /dev/null 2> /dev/null
 then
-  echo "Instruqt CLI installed succesfully. Go forth and create."
+  echo "Instruqt CLI installed. Go forth and create."
 else
   echo "Instruqt CLI installation failed. Try again or contact support!"
 fi
