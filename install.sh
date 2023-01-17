@@ -6,6 +6,13 @@ then
   exit 1
 fi
 
+if ! unzip > /dev/null 2> /dev/null
+then
+  echo "Package missing. Please install unzip on your system."
+  echo "Debian/Ubuntu: apt install unzip"
+  echo "RHEL: dnf install unzip"
+fi
+
 get_latest_release() {
   curl --silent "https://api.github.com/repos/instruqt/cli/releases/latest" | 
   grep '"tag_name":' | 
