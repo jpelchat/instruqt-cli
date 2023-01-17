@@ -8,9 +8,8 @@ fi
 
 if ! unzip > /dev/null 2> /dev/null
 then
-  echo "Package missing. Please install unzip on your system."
-  echo "Debian/Ubuntu: apt install unzip"
-  echo "RHEL: dnf install unzip"
+  echo "PACKAGE MISSING: Please install unzip on your system."
+  exit 1
 fi
 
 get_latest_release() {
