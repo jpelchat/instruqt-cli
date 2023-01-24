@@ -6,12 +6,6 @@ then
   exit 1
 fi
 
-if ! unzip > /dev/null 2> /dev/null
-then
-  echo "PACKAGE MISSING: Please install unzip on your system."
-  exit 1
-fi
-
 get_latest_release() {
   curl --silent "https://api.github.com/repos/instruqt/cli/releases/latest" | 
   grep '"tag_name":' | 
@@ -50,6 +44,27 @@ fi
 if [[ -n "${LINUX_INSTALL}" ]]
 then
     PACKAGE_PREFIX="instruqt-linux"
+fi
+
+if ! unzip > /dev/null 2> /dev/null
+then
+  if [[ -n "${MACOS_INSTALL}" ]]
+    echo "PACKAGE MISSING. Please install unzip on your system:"
+    echo "brew install unzip"
+    exit 1
+  fi
+
+  if [[ -n "${LINUX_INSTALL}" && -f /etc/lsb-release ]]
+    echo "PACKAGE MISSING: Please install unzip on your system."
+    echo "sudo apt install unzip"
+    exit 1
+  fi
+
+  if [[ -n "${LINUX_INSTALL}" && -f /etc/redhat-release ]]
+    echo "PACKAGE MISSING: Please install unzip on your system."
+    echo "sudo dnf install unzip"
+    exit 1
+  fi
 fi
 
 # Set GitHub donwload URL
